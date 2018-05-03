@@ -1,0 +1,201 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Australian Fitness Academy Fitness Score</title>
+  <meta name="description" content="DESCRIPTIOPN" />
+  <link rel="icon" href="inc/favicon.ico" type="image/x-icon">
+
+
+  <meta property="og:image" content="#">
+  <meta property="og:image:type" content="image/jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://andySmith.is/">
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@andysmith_is">
+  <meta name="twitter:title" content="TITLE.">
+  <meta name="twitter:description" content="DESCRIPTION">
+  <meta name="twitter:creator" content="@Andysmith_is">
+  <meta name="twitter:image" content="#">
+  <meta name="twitter:url" content="http://andysmith.is/">
+  <meta name="twitter:domain" content="http://andysmith.is">
+
+  <meta name="author" content="Andy Smith Group, Inc." />
+  <meta name="copyright" content="Andy Smith" />
+  <link rel="canonical" href="#" />
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="inc/style.css" />
+
+  <!--<script src="//cdn.jsdelivr.net/npm/pouchdb@6.4.2/dist/pouchdb.min.js"></script>-->
+      
+  </head>
+  
+  <body>
+    <section class="screen__width">
+      
+        <div class="header">  
+          <h1><a href="index.html">AFA Fitness Score</a></h1>
+          
+        </div>
+    <div class="screen">
+      <h2 class="score__wrapper">Score: <span class="fitness__score">0</span>/100</h2>
+      <div class="vitals__form__wrapepr">
+          <div class="tests__title">Personal Details:</div>
+          <div class="row__wrapper flex__container">
+            <div class="input__title">Age</div>
+            <input type="text" class="input__age" placeholder="17-65">
+          </div>
+          <div class="row__wrapper flex__container">
+            <div class="input__title">Gender</div>
+              <select name="gender" id="input__gender">
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+              </select>
+          </div>
+        </div>
+
+      
+      <div class="input__form__wrapper">
+        <div class="row__wrapper">
+          <div class="tests__title">Cardiovascular Tests (select test):</div>
+            <div class="flex__container">
+              <select name="cardio" id="choice__cardio">
+                <option value="step">3 Minute Step Test</option>
+                <option value="beep">Beep Test</option>
+              </select>
+              <input type="text" class="input__cardio1" placeholder="Heart Rate">
+              <input type="text" class="input__cardio2 hidden">
+            </div>
+          </div>
+        <div class="row__wrapper">
+          <div class="tests__title">Upperbody Strength Tests (select test):</div>
+            <div class="flex__container">
+              <select name="upperbody" id="choice__upper">
+                <option value="toes">Max Pushup (Toes)</option>
+                <option value="knees">Max Pushup (Knees)</option>
+              </select>
+              <input type="text" class="input__upper" placeholder="Reps">
+            </div>
+        </div>
+        <div class="row__wrapper">
+          <div class="tests__title">Lowerbody Strength Test</div>
+            <div class="flex__container">
+              <div class="input__title">Wall Squat Test</div>
+              <input type="text" class="input__lower" placeholder="Seconds">
+            </div>
+        </div>
+        <div class="row__wrapper">
+          <div class="tests__title">Core Strength Tests (select test):</div>
+            <div class="flex__container">
+              <select name="core" id="choice__core">
+                  <option value="plank">Plank Test</option>
+                  <option value="curl">Curlup Test</option>
+              </select>
+              <input type="text" class="input__core" placeholder="Seconds">
+            </div>
+        </div>
+        <div class="row__wrapper">
+          <div class="tests__title">Flexibility Test  </div>
+            <div class="flex__container">
+              <div class="input__title">Sit &amp; Reach Test</div>
+              <input type="text" class="input__flex" placeholder="in cm">
+            </div>
+        </div>
+        <button class="submit">Submit</button>
+      </div>
+
+      <div class="score__breakdown">
+        <h2>Results:</h2>
+     <!--    <div class="row__wrapper flex__container">
+          <div class="input__titles">Cardio:</div>
+          <div class="results__breakdown"><span class="results__cardio">0</span>/20</div>
+        </div>
+
+
+        <div class="row__wrapper flex__container">
+          <div class="input__titles">Upperbody:</div>
+          <div class="results__breakdown"><span class="results__upper">0</span>/20</div>
+        </div>
+
+
+        <div class="row__wrapper flex__container">
+          <div class="input__titles">Lowerbody:</div>
+          <div class="results__breakdown"><span class="results__lower">0</span>/20</div>
+        </div>
+
+
+        <div class="row__wrapper flex__container">
+          <div class="input__titles">Core:</div>
+          <div class="results__breakdown"><span class="results__core">0</span>/20</div>
+        </div>
+
+
+        <div class="row__wrapper flex__container">
+          <div class="input__titles">Flexibility:</div>
+          <div class="results__breakdown"><span class="results__flex">0</span>/20</div>
+        </div>
+      </div> -->
+      
+      <div class="results__wrapper">
+        
+        <div class="results__row__wrapper">
+          <div class="row__titles">Date</div>
+          <div class="row__titles">Cardio Test</div>
+          <div class="row__titles">Cardio Result</div>
+          <div class="row__titles">Upper body</div>
+          <div class="row__titles">Lower body</div>
+          <div class="row__titles">Core</div>
+          <div class="row__titles">Flexibility</div>
+        </div>
+        <div class="results__row__wrapper">
+          <div class="results__ind"><span class="result__date">5/5/18</span></div>
+          <div class="results__ind"><span class="result__cardio-test">Beep</span></div>
+          <div class="results__ind"><span class="result__cardio">11/10</span></div>
+          <div class="results__ind"><span class="result__upper">50</span> <span class="result__upper-test">(toes)</span></div>
+          <div class="results__ind"><span class="result__lower">120</span>s</div>
+          <div class="results__ind"><span class="result__core">120</span>s</div>
+          <div class="results__ind"><span class="result__flex">15</span>cm</div>
+        </div>
+        <div class="results__row__wrapper">
+          <div class="results__ind"><span class="result__date">6/5/18</span></div>
+          <div class="results__ind"><span class="result__cardio-test">Beep</span></div>
+          <div class="results__ind"><span class="result__cardio">12/2</span></div>
+          <div class="results__ind"><span class="result__upper">55</span> <span class="result__upper-test">(toes)</span></div>
+          <div class="results__ind"><span class="result__lower">130</span>s</div>
+          <div class="results__ind"><span class="result__core">130</span>s</div>
+          <div class="results__ind"><span class="result__flex">16</span>cm</div>
+        </div>
+      </div>
+  
+
+      
+
+      </div>
+    
+    
+    <footer>
+      <div class="flex__container">
+        <div class="links">
+          <h5>Useful Links</h5>
+          <a href="methods.html">- Testing Methods</a>
+          <a href="scores.html">- Scoring Details</a>
+          <a href="https://www.fitnesseducation.edu.au">- Become a Personal Trainer</a>
+        </div>
+        <div class="logo"><a href="https://www.fitnesseducation.edu.au"><img src="inc/afa-logo-small.png" alt=""></a></div>
+      </div>
+    </footer>
+  </section>
+
+
+  <script src="inc/script.js"></script>
+  </body>
+
+</html>
