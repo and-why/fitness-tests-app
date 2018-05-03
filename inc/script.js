@@ -2,7 +2,7 @@
 
 var dataController = (function() {
 
-    var Record = function(id, date, cardio1, cardio2, upper, lower, core, flex) {
+    var Record = function(id, date, cardio1, cardio2, upper, lower, core, flex, choiceCardio, choiceUpper, choiceCore) {
         this.id = id;
         this.date = date;
         this.cardio1 = cardio1;
@@ -11,19 +11,29 @@ var dataController = (function() {
         this.lower = lower;
         this.core = core;
         this.flex = flex;
-    }
+        this.choiceCardio = choiceCardio;
+        this.choiceUpper = choiceUpper;
+        this.choiceCore = choiceCore;
+        }
 
-    let data = {
-        profile: {
-            age: 0,
-            gender: 0
-        } ,
-        resultsInd: []
-    }
+    if(localStorage.getItem('AFAfitnessAppdataStore')){
+        var data = localStorage.getItem('AFAfitnessAppdataStore');
+        data = JSON.parse(data);
+    } else {
+        var data = {
+            profile: {
+                age: 0,
+                gender: 0
+            } ,
+            resultsInd: []
+        }
+    };
 
     return {
         
-        addNewRecord: function(age, gender, cardio1, cardio2, upper, lower, core, flex) {
+        
+
+        addNewRecord: function(age, gender, cardio1, cardio2, upper, lower, core, flex, choiceCardio, choiceUpper, choiceCore) {
             let date, newItem, ID;
 
             date = new Date();
@@ -34,13 +44,33 @@ var dataController = (function() {
                 ID = 0;
             }
 
-            newItem = new Record(ID, date, cardio1, cardio2, upper, lower, core, flex);
+            newItem = new Record(ID, date, cardio1, cardio2, upper, lower, core, flex, choiceCardio, choiceUpper, choiceCore);
 
             data.resultsInd.push(newItem);
             data.profile.age = age;
             data.profile.gender = gender;
 
             UIController.writeResults(data.resultsInd);
+
+            dataController.storeData(data);
+        },
+
+        deleteFromData: function(id) {
+            
+            id = parseInt(id);
+            console.log(id);
+            var ids, index;
+
+            ids = data.resultsInd.map((e) => e.id);
+
+            index = ids.indexOf(id);
+
+            if (index !== -1) {data.resultsInd.splice(index,1)};
+
+            UIController.writeResults(data.resultsInd);
+            console.log(data);
+            dataController.storeData(data);
+            return data;
         },
 
 
@@ -73,6 +103,10 @@ var dataController = (function() {
 
         },
 
+        storeData: function(data) {
+            localStorage.setItem('AFAfitnessAppdataStore', JSON.stringify(data));
+        },
+
         testing: function() {
             console.log(data);
         }
@@ -100,7 +134,10 @@ var UIController = (function() {
         input__core: '.input__core',
         input__flex: '.input__flex',
 
-        submitBtn: '.submit'
+        submitBtn: '.submit',
+
+        scoresBreakdown: '.score__breakdown',
+        delete__record: '.delete__record'
     }
 
     return  {
@@ -117,6 +154,7 @@ var UIController = (function() {
                 choiceCardio: document.querySelector(DOMstrings.choice__cardio).value,
                 choiceCore: document.querySelector(DOMstrings.choice__core).value,
                 choiceUpper: document.querySelector(DOMstrings.choice__upper).value
+
             }
         },
 
@@ -126,23 +164,47 @@ var UIController = (function() {
             return DOMstrings;
         },
 
-        writeResults: function(data) {
-            console.log(data)
-            for(let i = 0; i < data.length; i++){
-                var html = `
-        <div class="results__row__wrapper">
-          <div class="results__ind"><span class="result__date">${data[i]}</span></div>
-          <div class="results__ind"><span class="result__cardio-test">${data[i]}</span></div>
-          <div class="results__ind"><span class="result__cardio">${data[i]}</span></div>
-          <div class="results__ind"><span class="result__upper">${data[i]}</span> <span class="result__upper-test">(${data[i]})</span></div>
-          <div class="results__ind"><span class="result__lower">${data[i]}</span>s</div>
-          <div class="results__ind"><span class="result__core">${data[i]}</span>s</div>
-          <div class="results__ind"><span class="result__flex">${data[i]}</span>cm</div>
+        writeResults: function(resultsArr) {
+
+            const headers = `<div class="results__row__wrapper">
+          <div class="row__titles">Date</div>
+          <div class="row__titles">Cardio Test</div>
+          <div class="row__titles">Cardio Result</div>
+          <div class="row__titles">Upper body</div>
+          <div class="row__titles">Lower body</div>
+          <div class="row__titles">Core</div>
+          <div class="row__titles">Flexibility</div>
+        </div>`
+
+
+            document.querySelector(DOMstrings.scoresBreakdown).textContent = ' ';
+            document.querySelector(DOMstrings.scoresBreakdown).insertAdjacentHTML('beforeend', headers)
+            for(let i = 0; i < resultsArr.length; i++){
+                
+                if(resultsArr[i].id == undefined) {
+                    continue;
+                } else {
+
+                html = `
+        <div id="${resultsArr[i].id}" class="results__row__wrapper">
+          <div class="results__ind"><span class="result__date">${resultsArr[i].date}</span></div>
+          <div class="results__ind"><span class="result__cardio-test">${resultsArr[i].choiceCardio}</span></div>
+          <div class="results__ind"><span class="result__cardio">${resultsArr[i].cardio1}-${resultsArr[i].cardio2}</span></div>
+          <div class="results__ind"><span class="result__upper">${resultsArr[i].upper}</span> <span class="result__upper-test">(${resultsArr[i].choiceUpper})</span></div>
+          <div class="results__ind"><span class="result__lower">${resultsArr[i].lower}</span>s </div>
+          <div class="results__ind"><span class="result__core">${resultsArr[i].core}</span>s (${resultsArr[i].choiceCore})</div>
+          <div class="results__ind"><span class="result__flex">${resultsArr[i].flex}</span>cm</div>
+          <button class="delete__record">x</button>
         </div>
         `
-
+            document.querySelector(DOMstrings.scoresBreakdown).insertAdjacentHTML('beforeend', html);
 
             }
+        }
+        },
+
+        deleteRecord: function() {
+           dataController.deleteFromData(this.parentNode.id);
         }
     }
     
@@ -180,7 +242,7 @@ var controller = (function(dataCtrl, UICtrl) {
             });
                 
             
-
+            document.querySelectorAll(dom.delete__record).forEach((e) => e.addEventListener('click', UICtrl.deleteRecord));
 
             document.querySelector(dom.submitBtn).addEventListener('click', ctrlAddRecord);
     
@@ -195,7 +257,7 @@ var controller = (function(dataCtrl, UICtrl) {
 
             input = UICtrl.getInput();
             console.log(input)
-            dataCtrl.addNewRecord(input.age, input.gender, input.cardio1, input.cardio2, input.upper, input.lower, input.core, input.flex);
+            dataCtrl.addNewRecord(input.age, input.gender, input.cardio1, input.cardio2, input.upper, input.lower, input.core, input.flex, input.choiceCardio, input.choiceUpper, input.choiceCore);
 
             // add record from array (even if local stored) and put them in the display region
 
@@ -206,12 +268,21 @@ var controller = (function(dataCtrl, UICtrl) {
 
     return {
         init: function(){
-            
-            if(localStorage.getItem('AFAdataStore')){
-                let data = localStorage.getItem('AFAdataStore');
-                data.JSON.parse(data);
-            }
-            dataController.runCalculations();
+
+            if(localStorage.getItem('AFAfitnessAppdataStore')){
+                    var data = localStorage.getItem('AFAfitnessAppdataStore');
+                    data = JSON.parse(data);
+                } else {
+                    var data = {
+                        profile: {
+                            age: 0,
+                            gender: 0
+                        } ,
+                        resultsInd: []
+                    }
+                };
+
+            UIController.writeResults(data.resultsInd);
             setupEventListeners();
         }
     }
@@ -226,3 +297,7 @@ var calculator = (function(){
 
 
 controller.init();
+
+
+
+

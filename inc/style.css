@@ -9,7 +9,6 @@ html {
 	font-family:'Open Sans', sans-serif;
 	font-weight:300;
 	color:#fff;
-	font-size:14px;
 }
 *, *:before, *:after {
 	-webkit-box-sizing: inherit;
@@ -211,6 +210,8 @@ button.submit:hover {
 .results__row__wrapper {
 	display:flex;
 	margin:0;
+	font-size:12px;
+	align-items: center;
 }
 .results__row__wrapper:nth-child(odd) {
 	background-color:#5d646d;
@@ -221,7 +222,18 @@ button.submit:hover {
 }
 .row__titles {
 	color:#5aadd0;
+	padding:10px 2px;
 	background-color: white;
+}
+.delete__record {
+	background-color: #f33736;
+	color:white;
+    text-align: center;
+    border: none;
+    height: 18px;
+    border-radius: 50%;
+    width: 18px;
+    margin: 2px;
 }
 
 
